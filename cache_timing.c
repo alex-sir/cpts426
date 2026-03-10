@@ -64,7 +64,7 @@ static size_t get_cache_size(int level) {
 
   // Assuming index0=L1D, index3=L2, index6=L3 (common on Intel)
   // Adjust indices based on your system
-  int index = (level == 1) ? 0 : (level == 2) ? 3 : 6;
+  int index = (level == 1) ? 0 : (level == 2) ? 2 : 3;
 
   snprintf(path, sizeof(path),
            "/sys/devices/system/cpu/cpu0/cache/index%d/size", index);
