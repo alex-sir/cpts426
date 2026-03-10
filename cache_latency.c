@@ -95,27 +95,8 @@ int main(void) {
     printf("%-8zu %-16.2f\n", sizes[i] / 1024, c);
   }
 
-  printf("\n");
-  printf("Now choose size ranges (in KB) that best match each cache level.\n");
-  printf("For a typical Xeon: L1D ~ 32KB, L2 ~ 1MB, L3 ~ tens of MB.\n");
-  printf("Use the table above as a guide (look for plateaus).\n\n");
-
-  size_t l1_min, l1_max, l2_min, l2_max, l3_min, l3_max;
-
-  printf("Enter L1D min KB (e.g., 4): ");
-  scanf("%zu", &l1_min);
-  printf("Enter L1D max KB (e.g., 32): ");
-  scanf("%zu", &l1_max);
-
-  printf("Enter L2  min KB (e.g., 64): ");
-  scanf("%zu", &l2_min);
-  printf("Enter L2  max KB (e.g., 1024): ");
-  scanf("%zu", &l2_max);
-
-  printf("Enter L3  min KB (e.g., 2048): ");
-  scanf("%zu", &l3_min);
-  printf("Enter L3  max KB (e.g., 32768): ");
-  scanf("%zu", &l3_max);
+  size_t l1_min = 4, l1_max = 48, l2_min = 64, l2_max = 1363, l3_min = 2048,
+         l3_max = 50331;
 
   double l1_cycles = avg_latency_in_range(samples, N, l1_min, l1_max);
   double l2_cycles = avg_latency_in_range(samples, N, l2_min, l2_max);
@@ -123,6 +104,8 @@ int main(void) {
 
   printf("\n================ Raw Latency Summary ================\n");
   printf("  L1D (avg over %zu–%zu KB):  %.2f cycles/access\n", l1_min, l1_max,
+         l1_cycles);
+  printf("  L1I (avg over %zu–%zu KB):  %.2f cycles/access\n", l1_min, l1_max,
          l1_cycles);
   printf("  L2  (avg over %zu–%zu KB):  %.2f cycles/access\n", l2_min, l2_max,
          l2_cycles);
